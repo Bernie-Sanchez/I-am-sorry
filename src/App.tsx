@@ -40,8 +40,26 @@ export default function ApologyPage() {
     "Sorry :<"
   ];
 
+  // Different GIFs per page (pair them per 2 lines)
+  const gifs = [
+    "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDJseWhmaHkxbzZmaG1hc2w5YmFjcmwxN3g5bzRqeTNuY2p0MXptdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/2aw9gwZlltbdX92b4w/giphy.gif",
+    "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMndpZWd3cWc0cTl0dnhtOWFqcHZxazU3aDRpM29wdGk2NGFpcm9yNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/puUeBoInZy16GV2VkN/giphy.gif",
+    "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3OGFxYmY2NjhyMzRwb28yMnh3cDB2ZHVnMTA3OWpvcWx4NDRtYnQ3MSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/K6WIhJ07gwGkIAQfwN/giphy.gif",
+    "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3OGFxYmY2NjhyMzRwb28yMnh3cDB2ZHVnMTA3OWpvcWx4NDRtYnQ3MSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/qUIm5wu6LAAog/giphy.gif",
+    "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTBkcnY5OGdlMnIwdWg5NmNvN2lhdTlibjhzb3NraGlxNWVkdTFnMSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/dTNGL5UGTyE9Y033WK/giphy.gif",
+    "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3YXowN2JteXFqam82N3gyMWl2NHducmxrd2s0bWF5aHlsNDYxeWw1cSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/CMIDKjddFg5YQ/giphy.gif",
+    "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3OGFxYmY2NjhyMzRwb28yMnh3cDB2ZHVnMTA3OWpvcWx4NDRtYnQ3MSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/xUOwFZmWUC2QDHKu4M/giphy.gif",
+    "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3OGFxYmY2NjhyMzRwb28yMnh3cDB2ZHVnMTA3OWpvcWx4NDRtYnQ3MSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/xT5LMC5KC4whB6qyyc/giphy.gif",
+    "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExczhuNHBydjA4MXgxZ3pvOWFpNGRxYzJhMmM1ZTVtOGwwdXhjYjVwdSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/OUVPn4HIHN59nUW8eM/giphy.gif",
+    "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTJ0dzNya3h0OGV2bzcycWR3cDRqODNpeWlnZWx0djVpNm9mcXg1OSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/Gf54zTxt2QKru/giphy.gif",
+    "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmppOHA2ZDRmaXp3MWhiMTB2eXRsemhzdDNvcDk3a2M0Nms3OHZiOCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/wvYNSqBAMDVx8CEYkt/giphy.gif",
+    "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZzd1ZHNlb28xZXF2ODM0cXhnc2FyYTN0YWdtc3A0OGg2dmhma3VmZSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/7zzjU4ToWpasY36ab4/giphy.gif"
+  ];
+
   const [index, setIndex] = useState(0);
   const [started, setStarted] = useState(false);
+
+  const page = Math.floor(index / 2);
 
   const nextPage = () => {
     if (index + 2 < messages.length) {
@@ -71,17 +89,13 @@ export default function ApologyPage() {
           marginBottom: "40px"
         }}
       >
-        {/* Floating hearts INSIDE card */}
+        {/* Hearts inside */}
         {[...Array(6)].map((_, i) => (
           <motion.div
             key={i}
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: [0, 1, 0], scale: [0, 1.5, 0], y: [-20, -120] }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              delay: i * 0.6
-            }}
+            transition={{ duration: 3, repeat: Infinity, delay: i * 0.6 }}
             style={{
               position: "absolute",
               bottom: "10px",
@@ -122,25 +136,23 @@ export default function ApologyPage() {
             </p>
 
             {index + 2 < messages.length && (
-              <button
-                onClick={nextPage}
-                className="btn btn-light mt-3"
-              >
+              <button onClick={nextPage} className="btn btn-light mt-3">
                 Continue 💜
               </button>
             )}
           </>
         )}
 
+        {/* Dynamic GIF */}
         <motion.div
           className="mt-4"
+          key={page}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
         >
           <img
-            src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDJseWhmaHkxbzZmaG1hc2w5YmFjcmwxN3g5bzRqeTNuY2p0MXptdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/2aw9gwZlltbdX92b4w/giphy.gif"
-            alt="emotional penguin apology"
+            src={gifs[page] || gifs[gifs.length - 1]}
+            alt="emotional reaction"
             className="img-fluid rounded"
           />
         </motion.div>
