@@ -37,7 +37,7 @@ export default function ApologyPage() {
     "I love you so much po 💜",
     "I miss you so much po :<",
 
-    "Sorry :<"
+    "I'm really, really sorry po :<"
   ];
 
   // Different GIFs per page (pair them per 2 lines)
