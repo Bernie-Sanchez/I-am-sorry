@@ -14,7 +14,8 @@ export default function ApologyPage() {
   I hope I can hug you right now and say sorry po in personal :< I am so so so sorry po, I hope you still can forgive me po :<\n\n
   I love you so much and I miss you so much :< I am very sorry po :<\n\n\n\n
   Sorryyyy :<\n\n
-  I love you so much po 💜`;
+  I love you so much po 💜\n
+  I miss you so much po :<`;
 
   const [displayedText, setDisplayedText] = useState("");
   const [showMessage, setShowMessage] = useState(false);
