@@ -1,51 +1,66 @@
 import { motion } from "framer-motion";
 import { Heart } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function ApologyPage() {
-  const fullText = `I know I made a mistake po, and I hurt you po or I made you annoyed on me po. That was never my intention po.
-  You mean so much to me po, and I truly regret what I did po.\n\nI hope you can find it po in your heart to forgive me po.
-  I promise to do better po and make things right po because you are important to me po :<.\n\n
-  I know I don't deserve your time po right now but I hope you can spare me some of your time po. I am so sorry po.\n\n
-  To be honest po, I am disappointed already in myself po because I still made you mad at me po, I still made you annoyed at me po, and sometimes I still hurt you po\n\n
-  So now I am here po to apologize for all the things that I've done to you po. I don't know either po if you can still forgive me po. But atleast po, I'll try and I give my apology po to you.\n\n
-  I am still shy po for what I've done po, but nothing happened po if I stay shy for what I've done po, I am so sorry po for making mistakes po, for making you mad at me po\n\n
-  I don't want to go along po with your problems and struggles but I still do that without knowing it, and because of that I made it big more and I am so sorry for that po :<\n\n
-  I hope I can hug you right now and say sorry po in personal :< I am so so so sorry po, I hope you still can forgive me po :<\n\n
-  I love you so much and I miss you so much :< I am very sorry po :<\n\n\n\n
-  Sorryyyy :<\n\n
-  I love you so much po 💜\n
-  I miss you so much po :<`;
+  const messages = [
+    "I know I made a mistake po, and I hurt you po.",
+    "That was never my intention po.",
 
-  const [displayedText, setDisplayedText] = useState("");
-  const [showMessage, setShowMessage] = useState(false);
+    "You mean so much to me po, and I truly regret what I did po.",
+    "I hope you can find it po in your heart to forgive me po.",
 
-  useEffect(() => {
-    if (!showMessage) return;
+    "I promise to do better po and make things right po.",
+    "Because you are important to me po :<",
 
-    let i = 0;
-    const interval = setInterval(() => {
-      setDisplayedText(fullText.slice(0, i + 1));
-      i++;
-      if (i === fullText.length) clearInterval(interval);
-    }, 40);
+    "I know I don't deserve your time po right now.",
+    "But I hope you can spare me some of your time po.",
 
-    return () => clearInterval(interval);
-  }, [showMessage]);
+    "I am disappointed in myself po.",
+    "Because I still made you mad and hurt you po.",
+
+    "I am here to apologize for everything po.",
+    "I don’t know if you can forgive me po.",
+
+    "But I will still try po.",
+    "I want to give my sincere apology po.",
+
+    "I am shy po for what I’ve done.",
+    "But staying silent won’t fix anything po.",
+
+    "I’m sorry for making your problems heavier po.",
+    "I didn’t mean to make things worse po :<",
+
+    "I wish I could hug you right now po.",
+    "And say sorry in person po :<",
+
+    "I love you so much po 💜",
+    "I miss you so much po :<",
+
+    "Sorry :<"
+  ];
+
+  const [index, setIndex] = useState(0);
+  const [started, setStarted] = useState(false);
+
+  const nextPage = () => {
+    if (index + 2 < messages.length) {
+      setIndex(index + 2);
+    }
+  };
 
   return (
     <div
       className="d-flex justify-content-center align-items-start min-vh-100 py-5"
       style={{
         background: "linear-gradient(135deg, #d8b4fe, #a855f7, #6b21a8)",
-        overflowY: "auto"
       }}
     >
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
-        className="card text-center p-4 shadow-lg overflow-visible"
+        className="card text-center p-4 shadow-lg position-relative overflow-hidden"
         style={{
           maxWidth: "500px",
           background: "rgba(255,255,255,0.15)",
@@ -56,6 +71,29 @@ export default function ApologyPage() {
           marginBottom: "40px"
         }}
       >
+        {/* Floating hearts INSIDE card */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: [0, 1, 0], scale: [0, 1.5, 0], y: [-20, -120] }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              delay: i * 0.6
+            }}
+            style={{
+              position: "absolute",
+              bottom: "10px",
+              left: `${10 + i * 12}%`,
+              fontSize: "18px",
+              pointerEvents: "none"
+            }}
+          >
+            💜
+          </motion.div>
+        ))}
+
         <motion.div
           animate={{ scale: [1, 1.2, 1] }}
           transition={{ repeat: Infinity, duration: 1.5 }}
@@ -66,34 +104,39 @@ export default function ApologyPage() {
 
         <h1 className="fw-bold mb-3">I'm so Sorry po 💜</h1>
 
-        {!showMessage && (
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setShowMessage(true)}
+        {!started && (
+          <button
+            onClick={() => setStarted(true)}
             className="btn btn-primary"
             style={{ backgroundColor: "#7c3aed", border: "none" }}
           >
             Open My Message 💜
-          </motion.button>
+          </button>
         )}
 
-        {showMessage && (
-          <motion.p
-            className="mt-3"
-            style={{ whiteSpace: "pre-line", fontSize: "18px" }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-          >
-            {displayedText}
-          </motion.p>
+        {started && (
+          <>
+            <p style={{ fontSize: "18px", minHeight: "80px" }}>
+              {messages[index]}<br />
+              {messages[index + 1]}
+            </p>
+
+            {index + 2 < messages.length && (
+              <button
+                onClick={nextPage}
+                className="btn btn-light mt-3"
+              >
+                Continue 💜
+              </button>
+            )}
+          </>
         )}
 
         <motion.div
           className="mt-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
+          transition={{ delay: 1 }}
         >
           <img
             src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDJseWhmaHkxbzZmaG1hc2w5YmFjcmwxN3g5bzRqeTNuY2p0MXptdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/2aw9gwZlltbdX92b4w/giphy.gif"
